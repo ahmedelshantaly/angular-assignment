@@ -8,6 +8,7 @@ import {
   selectPostsLoading,
 } from '../../store/posts/posts.selectors';
 import { PostCardComponent } from '../post-card/post-card.component';
+import { LoaderComponent } from '../loader/loader.component';
 
 describe('PostsListComponent', () => {
   let component: PostsListComponent;
@@ -25,7 +26,7 @@ describe('PostsListComponent', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PostsListComponent, PostCardComponent],
+      declarations: [PostsListComponent, PostCardComponent,LoaderComponent],
       providers: [provideMockStore({ initialState })],
     }).compileComponents();
 
