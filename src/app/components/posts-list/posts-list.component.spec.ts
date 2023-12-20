@@ -9,24 +9,21 @@ import {
 } from '../../store/posts/posts.selectors';
 import { PostCardComponent } from '../post-card/post-card.component';
 import { LoaderComponent } from '../loader/loader.component';
+import { PostsState } from 'src/app/store/posts/posts.state';
 
 describe('PostsListComponent', () => {
   let component: PostsListComponent;
   let fixture: ComponentFixture<PostsListComponent>;
   let store: MockStore;
-  const initialState = {
-    // Define your initial state here if needed
-    posts: {
-      entities: {},
-      ids: [],
-      loading: false,
-      error: null,
-    },
+  const initialState: PostsState = {
+    posts: [],
+    loading: false,
+    error: null,
   };
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [PostsListComponent, PostCardComponent,LoaderComponent],
+      declarations: [PostsListComponent, PostCardComponent, LoaderComponent],
       providers: [provideMockStore({ initialState })],
     }).compileComponents();
 
