@@ -1,6 +1,12 @@
 import { PostInterface } from 'src/app/interfaces/post.interface';
-import { PostsService } from './../../services/posts.service';
 import { Component, OnInit } from '@angular/core';
+import { Store, select } from '@ngrx/store';
+import { Observable } from 'rxjs';
+import { loadPosts } from '../../store/posts/posts.actions';
+import {
+  selectPosts,
+  selectPostsLoading,
+} from '../../store/posts/posts.selectors';
 
 @Component({
   selector: 'app-posts-list',
@@ -8,11 +14,11 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./posts-list.component.scss'],
 })
 export class PostsListComponent implements OnInit {
-  constructor(private postsService: PostsService) {}
-
-  posts: PostInterface[] = [];
+  posts$: Observable<PostInterface[]> = this.store.pipe(select(selectPosts));
+  loading$: Observable<boolean> = this.store.pipe(select(selectPostsLoading));
+  constructor(private store: Store) {}
 
   ngOnInit(): void {
-    this.postsService.getPosts().subscribe((res) => (this.posts = res));
+    this.store.dispatch(loadPosts());
   }
 }

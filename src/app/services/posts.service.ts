@@ -5,6 +5,8 @@ import { environment } from 'src/environments/environment.development';
 import { Endpoints } from '../enums/endpoints.enum';
 import { PostInterface } from '../interfaces/post.interface';
 import { ErrorService } from './error.service';
+import { Store } from '@ngrx/store';
+import * as PostsActions from '../store/posts/posts.actions';
 
 @Injectable({
   providedIn: 'root',
@@ -13,6 +15,7 @@ export class PostsService {
   constructor(
     private http: HttpClient,
     private errorService: ErrorService,
+    private store: Store,
   ) {}
 
   getPosts(): Observable<PostInterface[]> {
@@ -35,6 +38,7 @@ export class PostsService {
       );
     }
     this.errorService.showError('An error occurred. Please try again later.');
+    this.store.dispatch(PostsActions.loadPostsFailure({ error }));
 
     return throwError(
       () => new Error('Something bad happened; please try again later.'),
