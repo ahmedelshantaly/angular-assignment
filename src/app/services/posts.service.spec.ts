@@ -7,6 +7,8 @@ import { PostsService } from './posts.service';
 import { environment } from 'src/environments/environment.development';
 import { Endpoints } from '../enums/endpoints.enum';
 import { ErrorService } from './error.service';
+import { StoreModule } from '@ngrx/store';
+import * as fromPosts from '../store/posts/posts.reducer';
 
 describe('PostsService', () => {
   let postsService: PostsService;
@@ -14,7 +16,7 @@ describe('PostsService', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      imports: [HttpClientTestingModule],
+      imports: [HttpClientTestingModule,StoreModule.forRoot({ posts: fromPosts.postsReducer }),],
       providers: [PostsService, ErrorService],
     });
 
